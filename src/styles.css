@@ -1,0 +1,565 @@
+:root {
+  --bg: #0f172a;
+  --bg-soft: #1e293b;
+  --panel: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --brand: #2563eb;
+  --brand-dark: #1d4ed8;
+  --accent: #f0f7ff;
+  --accent-line: #bfdbfe;
+  --note-bg: #fff7ed;
+  --note-line: #fed7aa;
+  --note-ink: #9a3412;
+  --radius: 14px;
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.06);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f1f5f9;
+  color: var(--ink);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ───────── Header ───────── */
+.app-header {
+  background: linear-gradient(135deg, var(--bg) 0%, #1e3a8a 100%);
+  color: #fff;
+  padding: 22px 20px;
+}
+.app-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #c7d2fe;
+}
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ───────── Buttons ───────── */
+.btn {
+  border: none;
+  background: #fff;
+  color: var(--brand-dark);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.05s ease, opacity 0.15s ease;
+}
+.btn:hover {
+  opacity: 0.92;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ───────── Layout ───────── */
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 22px;
+  align-items: start;
+}
+@media (max-width: 840px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ───────── Step card ───────── */
+.step {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 18px 20px;
+}
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.step-title {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.step-situation {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.step-prompt {
+  display: block;
+  margin: 16px 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* ───────── Options (дерево: все варианты видны, клик подгружает следующий) ───────── */
+.option-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.option-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease,
+    transform 0.05s ease;
+}
+.option-btn:hover {
+  border-color: var(--accent-line);
+  background: #f8fbff;
+}
+.option-btn:active {
+  transform: translateY(1px);
+}
+.option-btn:focus-visible {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+.option-btn.active {
+  border-color: var(--brand);
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--brand) inset;
+  font-weight: 600;
+}
+.option-label {
+  flex: 1;
+}
+.option-arrow {
+  color: var(--muted);
+  font-size: 15px;
+  flex: none;
+}
+.option-btn.active .option-arrow {
+  color: var(--brand);
+}
+
+/* ───────── Say card ───────── */
+.say-card {
+  margin-top: 14px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent);
+  border-radius: 12px;
+  padding: 14px;
+}
+.say-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-dark);
+  margin-bottom: 6px;
+}
+.say-text {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: #0b1f44;
+}
+.copy-btn {
+  border: 1px solid var(--accent-line);
+  background: #fff;
+  color: var(--brand-dark);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.copy-btn:hover {
+  background: #eff6ff;
+}
+.say-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--note-ink);
+  background: var(--note-bg);
+  border: 1px solid var(--note-line);
+  border-radius: 9px;
+  padding: 8px 10px;
+}
+.note-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--note-line);
+  color: var(--note-ink);
+  padding: 1px 6px;
+  border-radius: 5px;
+  margin-right: 6px;
+}
+
+/* ───────── Call log ───────── */
+.call-log {
+  position: sticky;
+  top: 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.call-log-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.call-log-head h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.call-log-empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.call-log-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.call-log-list li {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.log-stage {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand);
+  margin-bottom: 2px;
+}
+.log-say {
+  color: #1e293b;
+}
+
+/* ───────── View switch (Скрипт / Советы) ───────── */
+.view-switch {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 3px;
+}
+.tab {
+  border: none;
+  background: transparent;
+  color: #dbeafe;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.tab.active {
+  background: #fff;
+  color: var(--brand-dark);
+}
+
+/* single-column main (Советы / Амбакс) */
+.app-main.single {
+  display: block;
+}
+.page-intro {
+  margin-bottom: 18px;
+}
+.page-intro h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+.page-intro p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 720px;
+}
+
+/* ───────── Tips ───────── */
+.tips-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--accent-line);
+}
+.chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+.tip-block {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.tip-block.open {
+  border-color: var(--accent-line);
+}
+.tip-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "cat toggle" "title toggle";
+  gap: 2px 10px;
+  align-items: center;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+.tip-cat {
+  grid-area: cat;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand);
+}
+.tip-title {
+  grid-area: title;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.tip-toggle {
+  grid-area: toggle;
+  font-size: 22px;
+  color: var(--muted);
+  line-height: 1;
+}
+.tip-body {
+  margin: 0;
+  padding: 0 16px 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #334155;
+}
+
+/* ───────── Pay scheme (Амбакс) ───────── */
+.payscheme {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 22px;
+}
+.payscheme h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+.payscheme h4 {
+  margin: 22px 0 10px;
+  font-size: 15px;
+}
+.payscheme-sub {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  max-width: 720px;
+}
+.pay-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+}
+.pay-card {
+  flex: 1 1 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--accent);
+  border: 1px solid var(--accent-line);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.pay-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-dark);
+}
+.pay-card-value {
+  font-size: 19px;
+  font-weight: 700;
+  color: #0b1f44;
+}
+.pay-card-note {
+  font-size: 12px;
+  color: var(--muted);
+}
+.pay-op {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.payscheme-formula {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #334155;
+}
+.table-wrap {
+  overflow-x: auto;
+}
+.pay-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.pay-table th,
+.pay-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.pay-table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.pay-table .cell-rate {
+  font-weight: 700;
+  color: var(--brand-dark);
+}
+.pay-table .cell-note {
+  color: var(--muted);
+}
+.pay-rules {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #334155;
+}
+
+/* ───────── Footer ───────── */
+.app-footer {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+  padding: 18px;
+}

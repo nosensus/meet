@@ -1,0 +1,7 @@
+node_modules
+audio
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
