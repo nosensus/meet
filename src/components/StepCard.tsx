@@ -1,4 +1,5 @@
 import type { ScriptNode } from "../types";
+import type { UIStrings } from "../i18n";
 import SayCard from "./SayCard";
 
 interface Props {
@@ -6,9 +7,10 @@ interface Props {
   node: ScriptNode;
   selectedOptionId: string | null;
   onSelect: (optionId: string) => void;
+  t: UIStrings;
 }
 
-export default function StepCard({ index, node, selectedOptionId, onSelect }: Props) {
+export default function StepCard({ index, node, selectedOptionId, onSelect, t }: Props) {
   return (
     <section className="step">
       <header className="step-head">
@@ -35,7 +37,7 @@ export default function StepCard({ index, node, selectedOptionId, onSelect }: Pr
                 {o.next && <span className="option-arrow">→</span>}
               </button>
 
-              {active && (o.say || o.note) && <SayCard say={o.say} note={o.note} />}
+              {active && (o.say || o.note) && <SayCard say={o.say} note={o.note} t={t} />}
             </li>
           );
         })}

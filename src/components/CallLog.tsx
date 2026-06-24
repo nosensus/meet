@@ -1,3 +1,5 @@
+import type { UIStrings } from "../i18n";
+
 interface LogLine {
   title: string;
   say: string;
@@ -5,9 +7,10 @@ interface LogLine {
 
 interface Props {
   lines: LogLine[];
+  t: UIStrings;
 }
 
-export default function CallLog({ lines }: Props) {
+export default function CallLog({ lines, t }: Props) {
   async function copyAll() {
     const text = lines.map((l) => `• ${l.say}`).join("\n");
     try {
@@ -20,18 +23,16 @@ export default function CallLog({ lines }: Props) {
   return (
     <aside className="call-log">
       <div className="call-log-head">
-        <h3>Сценарий звонка</h3>
+        <h3>{t.callScript}</h3>
         {lines.length > 0 && (
           <button className="copy-btn" type="button" onClick={copyAll}>
-            Копировать всё
+            {t.copyAll}
           </button>
         )}
       </div>
 
       {lines.length === 0 ? (
-        <p className="call-log-empty">
-          Здесь соберутся ваши реплики по мере прохождения скрипта.
-        </p>
+        <p className="call-log-empty">{t.callLogEmpty}</p>
       ) : (
         <ol className="call-log-list">
           {lines.map((l, i) => (

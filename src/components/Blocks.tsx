@@ -4,16 +4,17 @@ import type { Tip } from "../data/tips";
 interface Props {
   items: Tip[];
   categories: readonly string[];
+  allLabel: string;
 }
 
-export default function Blocks({ items, categories }: Props) {
+export default function Blocks({ items, categories, allLabel }: Props) {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [filter, setFilter] = useState<string>("Все");
+  const [filter, setFilter] = useState<string>(allLabel);
 
-  const tabs = ["Все", ...categories];
+  const tabs = [allLabel, ...categories];
   const visible = useMemo(
-    () => (filter === "Все" ? items : items.filter((t) => t.category === filter)),
-    [filter, items]
+    () => (filter === allLabel ? items : items.filter((t) => t.category === filter)),
+    [filter, items, allLabel]
   );
 
   return (

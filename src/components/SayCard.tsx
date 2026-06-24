@@ -1,11 +1,13 @@
 import { useState } from "react";
+import type { UIStrings } from "../i18n";
 
 interface Props {
   say?: string;
   note?: string;
+  t: UIStrings;
 }
 
-export default function SayCard({ say, note }: Props) {
+export default function SayCard({ say, note, t }: Props) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -26,9 +28,9 @@ export default function SayCard({ say, note }: Props) {
       {say && (
         <div className="say-main">
           <div className="say-label">
-            <span>Скажите клиенту</span>
+            <span>{t.sayToClient}</span>
             <button className="copy-btn" onClick={copy} type="button">
-              {copied ? "Скопировано ✓" : "Копировать"}
+              {copied ? t.copied : t.copy}
             </button>
           </div>
           <p className="say-text">{say}</p>
@@ -36,7 +38,7 @@ export default function SayCard({ say, note }: Props) {
       )}
       {note && (
         <p className="say-note">
-          <span className="note-tag">подсказка</span> {note}
+          <span className="note-tag">{t.hint}</span> {note}
         </p>
       )}
     </div>
